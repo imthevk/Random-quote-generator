@@ -23,24 +23,24 @@ function completeLoadingSpinner() {
 async function getQuote() {
   showLoadingSpinner();
   //   const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-  const apiUrl = "https://quote-garden.herokuapp.com/api/v2/quotes/random";
+  const apiUrl = "http://quotes.stormconsultancy.co.uk/random.json";
   // "http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json";
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
-    console.log(data.quote.quoteText);
+    console.log(data);
     //if author is blank , add 'Unknown'
-    if (data.quote.quoteAuthor === "") {
+    if (data.author === " ") {
       authorText.innerText = "Unknown";
     } else {
-      authorText.innerText = data.quote.quoteAuthor;
+      authorText.innerText = data.author;
     }
-    if (data.quote.quoteText.length > 120) {
+    if (data.quote > 120) {
       quoteText.classList.add("long-quote");
     } else {
       quoteText.classList.remove("long-quote");
     }
-    quoteText.innerText = data.quote.quoteText;
+    quoteText.innerText = data.quote;
     //stop loader, show quote
     completeLoadingSpinner();
   } catch (error) {
